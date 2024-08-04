@@ -7,6 +7,10 @@
     "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "npx paywright test",
+    "test:ui": "npx playwright test --ui",
+    "test:chrome": "npx playwright test --project=chromium",
+    "test:debug": "npx playwright test --debug",
     "stripe:listen": "stripe listen --forward-to localhost:4343/api/webhooks/stripe",
     "postinstall": "prisma generate",
     "check-types": "tsc --noEmit"
@@ -71,6 +75,7 @@
   "devDependencies": {
     "@layowt/tailwind-config": "*",
     "@layowt/typescript-config": "*",
+    "@playwright/test": "^1.45.3",
     "@types/micro-cors": "^0.1.5",
     "@types/node": "^20",
     "@types/react": "^18",
