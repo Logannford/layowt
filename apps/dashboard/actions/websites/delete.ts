@@ -11,8 +11,28 @@ import deleteCanvas from '@/actions/canvas/delete';
  * @param websiteId 
  * @returns 'ok'
  */
-export const deleteWebsite = async(websiteId: string) => {
-	// delete the site from the db
+export const deleteWebsite = async (websiteId: string) => {
+
+	// check if we have any pages associated with the canvas
+	const websitePages = await prisma.page.findMany({
+		where: {
+			canvasId: websiteId
+		}
+	});
+
+	// if we have pages, delete them
+	if (websitePages.length > 0) {
+		await prisma.page.deleteMany({
+			where: {
+				canvasId: websiteId
+			}
+		});
+	}
+
+	// then delete the associated canvas
+	await deleteCanvas({ canvasId: websiteId });
+
+	// then delete the site from the db
 	await prisma.website.delete({
 		where: {
 			websiteId
@@ -30,8 +50,6 @@ export const deleteWebsite = async(websiteId: string) => {
 	websiteFiles.forEach(async (file) => {
 		await supabase.storage.from('websites').remove([file.name]);
 	});
-
-	await deleteCanvas({ canvasId: websiteId });
 
 	// god. send. 🤩.
 	revalidateTag('websites');
