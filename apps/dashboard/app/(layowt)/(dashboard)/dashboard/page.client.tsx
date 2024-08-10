@@ -21,8 +21,9 @@ export default function PageClient({
   const urlParams = getQueryParams({ keys: ['e'] });
   
   if (Object.keys(urlParams).length > 0 && !ranToast.current) { 
-    toast.error(ERROR_CODES[urlParams.e]?.title ?? ERROR_CODES[urlParams.e], {
-      description: ERROR_CODES[urlParams.e]?.description,
+    const firstError = Object.values(urlParams)[0];
+    toast.error(ERROR_CODES[firstError]?.title ?? ERROR_CODES[firstError], {
+      description: ERROR_CODES[firstError]?.description,
       duration: 5000,
       position: 'bottom-right',
     });
