@@ -1,12 +1,17 @@
 import { redirect } from "next/navigation";
 
-export default function Layout({ 
-  children 
+export default function Layout({
+  children
 }: Readonly<{
   children: React.ReactNode;
-}>){
+}>) {
+  
   // redirect off this page on the production site
-  if (process.env.NODE_ENV === 'production') {
+  // of on a vercel deployment
+  if (
+    process.env.NODE_ENV === 'production' ||
+    process.env.VERCEL_ENV === 'production'
+  ) {
     return {
       redirect: {
         destination: '/404',
