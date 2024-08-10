@@ -34,6 +34,5 @@ export const getQueryParams = ({ keys = [] }: GetQueryParamsProps): QueryParams 
       values[key] = value;
     }
   }
-
   return values;
 };
