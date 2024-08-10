@@ -98,7 +98,7 @@ export default function UserSiteData() {
                 name="websiteName"
                 render={({ field }) => (
                   <FormControl>
-                    <div className="col-span-6">
+                    <div className="col-span-6 text-white">
                       <InputWithLabel
                         label="Site Name"
                         type="text"

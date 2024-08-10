@@ -5,7 +5,7 @@ import { DropdownMenuPortal } from '@radix-ui/react-dropdown-menu';
 import { deleteWebsite } from '@/actions/websites/delete';
 import { toast } from 'sonner';
 import { useAppDispatch } from '@/utils/index';
-import { removeWebsite } from '@/store/slices/website-store';
+import { removeWebsite, setSavingState } from '@/store/slices/website-store';
 import { useMutation } from '@tanstack/react-query';
 
 /**
@@ -26,15 +26,21 @@ export default function WebsiteCardModal({ website }: { website: Website }) {
     isPending,
     isError
   } = useMutation({
-    mutationFn: (websiteId: string) => deleteWebsite(websiteId),
+    mutationFn: (websiteId: string) => {
+      dispatch(setSavingState('saving'));
+      return deleteWebsite(websiteId)
+    },
     onSuccess: (data) => {
       // update the local copy of the sites
       dispatch(removeWebsite(website));
+      // close the modal
+      dispatch(setSavingState('idle'));
       // success toast
       toast.success('Website deleted successfully');
     },
     onError: (e) => {
       console.error(e);
+      dispatch(setSavingState('error'));
       toast.error(
         'An error occurred while deleting the website. Please try again or contact support.'
       );
