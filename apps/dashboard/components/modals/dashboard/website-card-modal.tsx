@@ -34,6 +34,7 @@ export default function WebsiteCardModal({ website }: { website: Website }) {
 
       toast.success('Website deleted successfully');
     } catch (e) {
+      console.error(e);
       toast.error(
         'An error occurred while deleting the website. Please try again or contact support.'
       );

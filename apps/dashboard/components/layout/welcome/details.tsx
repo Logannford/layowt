@@ -16,7 +16,6 @@ import {
   SelectContent, 
   SelectTrigger, 
   SelectItem, 
-  SelectGroup,
   SelectValue
 } from '@layowt/components/src/ui/select';
 
