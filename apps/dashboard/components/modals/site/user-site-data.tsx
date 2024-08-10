@@ -47,29 +47,26 @@ export default function UserSiteData() {
   } = useMutation({
     mutationFn: (data: SchemaProps) => updateWebsite(currentSite.websiteId, data),
     onSuccess: (data) => {
-      console.log(data);
-    }
-  });
-
-  const onSubmit = async (values: SchemaProps) => {
-    try {
-      if (!values.websiteName) {
-        return;
-      }
-      await server_updateWebsite(values);
       dispatch(
         setWebsite({
           ...currentSite,
-          ...values,
+          ...data,
           lastUpdated: new Date()
         })
       );
       setOpenModal(false);
       toast.success('Website data saved successfully! 🎉');
-    } catch (e) {
+    },
+    onError: (e) => {
       console.error('Error in user-site-data.tsx', e);
       toast.error('There was an error saving your website data');
     }
+  });
+
+  const onSubmit = async (values: SchemaProps) => {
+    if (!values.websiteName) 
+      return;    
+    await server_updateWebsite(values);
   };
 
   return (

@@ -4,9 +4,9 @@ import { DropdownMenuContent, DropdownMenuGroup } from '@/ui/dropdown-menu';
 import { DropdownMenuPortal } from '@radix-ui/react-dropdown-menu';
 import { deleteWebsite } from '@/actions/websites/delete';
 import { toast } from 'sonner';
-import { useState } from 'react';
 import { useAppDispatch } from '@/utils/index';
 import { removeWebsite } from '@/store/slices/website-store';
+import { useMutation } from '@tanstack/react-query';
 
 /**
  * This needs to allow the user to:
@@ -20,28 +20,26 @@ import { removeWebsite } from '@/store/slices/website-store';
 export default function WebsiteCardModal({ website }: { website: Website }) {
   const dispatch = useAppDispatch();
 
-  const [state, setState] = useState({
-    isDeleting: false
-  });
-
-  const handleSiteDelete = async () => {
-    setState({ ...state, isDeleting: true });
-    try {
-      await deleteWebsite(website.websiteId);
-
+  const {
+    data,
+    mutateAsync: server_deleteWebsite,
+    isPending,
+    isError
+  } = useMutation({
+    mutationFn: (websiteId: string) => deleteWebsite(websiteId),
+    onSuccess: (data) => {
       // update the local copy of the sites
       dispatch(removeWebsite(website));
-
+      // success toast
       toast.success('Website deleted successfully');
-    } catch (e) {
+    },
+    onError: (e) => {
       console.error(e);
       toast.error(
         'An error occurred while deleting the website. Please try again or contact support.'
       );
     }
-
-    setState({ ...state, isDeleting: false });
-  };
+  })
 
   const dropdownItems = [
     {
@@ -75,7 +73,7 @@ export default function WebsiteCardModal({ website }: { website: Website }) {
     {
       label: 'Delete',
       onClick: async () => {
-        await handleSiteDelete();
+        await server_deleteWebsite(website.websiteId);
       },
       isButton: true
     }
