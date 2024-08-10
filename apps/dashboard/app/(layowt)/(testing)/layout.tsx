@@ -7,7 +7,12 @@ export default function Layout({
 }>){
   // redirect off this page on the production site
   if (process.env.NODE_ENV === 'production') {
-    redirect('/')
+    return {
+      redirect: {
+        destination: '/404',
+        permanent: true
+      }
+    }
   }
 
   return (

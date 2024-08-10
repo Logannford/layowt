@@ -1,8 +1,8 @@
 // utils
 import { getUserFromSession } from '@/actions/user/get-user';
 import { getUserFromDb } from '@/actions/user/get-user';
-import { createWebsite } from '@/actions/websites/create-website';
-import { getWebsite } from '@/actions/websites/get-website';
+import { createWebsite } from '@/actions/websites/create';
+import { getWebsite } from '@/actions/websites/get';
 import { getUserSubscription } from '@/actions/subscriptions/get-subscriptions';
 import type { Website } from '@prisma/client';
 import dynamic from 'next/dynamic';

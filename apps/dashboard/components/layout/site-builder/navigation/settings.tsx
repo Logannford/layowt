@@ -5,7 +5,7 @@ import SiteBuilderPublishModal from './publish-dropdown';
 import { useAppSelector } from '@/utils/index';
 import { website } from '@/store/slices/website-store';
 import { updateWebsite } from '@/actions/websites/update';
-import { publishSite } from '@/actions/websites/publish-website';
+import { publishSite } from '@/actions/websites/publish';
 import { toast } from 'sonner';
 import UserDropdownMenu from '@/components/modals/user-dropdown-menu'
 

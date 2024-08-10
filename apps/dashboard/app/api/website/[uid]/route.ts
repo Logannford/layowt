@@ -1,4 +1,4 @@
-import { getWebsiteByDomain } from '@/actions/websites/get-website'
+import { getWebsiteByDomain } from '@/actions/websites/get'
 import { NextResponse } from 'next/server'
 
 export async function GET(req: Request, { 

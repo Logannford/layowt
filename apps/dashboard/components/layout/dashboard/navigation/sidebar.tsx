@@ -1,5 +1,5 @@
 import { getUserFromSession } from '@/actions/user/get-user';
-import { getWebsite } from '@/actions/websites/get-website';
+import { getWebsite } from '@/actions/websites/get';
 import type { Website } from '@prisma/client';
 
 import NavigationItems from '@/components/layout/dashboard/navigation/items';

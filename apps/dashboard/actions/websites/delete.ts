@@ -2,6 +2,7 @@
 import { prisma } from '@/utils/prisma';
 import { supabase } from '@/lib/supabase';
 import { revalidateTag } from 'next/cache';
+import deleteCanvas from '@/actions/canvas/delete';
 
 /**
  * 
@@ -29,6 +30,8 @@ export const deleteWebsite = async(websiteId: string) => {
 	websiteFiles.forEach(async (file) => {
 		await supabase.storage.from('websites').remove([file.name]);
 	});
+
+	await deleteCanvas({ canvasId: websiteId });
 
 	// god. send. 🤩.
 	revalidateTag('websites');

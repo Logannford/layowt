@@ -1,7 +1,7 @@
 'use server';
 import WebsiteCard from '@/components/layout/dashboard/website-card';
 import { getUserFromSession, getUserFromDb } from '@/actions/user/get-user';
-import { getWebsite } from '@/actions/websites/get-website';
+import { getWebsite } from '@/actions/websites/get';
 import { Website } from '@prisma/client';
 import PageClient from './page.client';
 

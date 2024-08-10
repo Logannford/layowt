@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { updateWebsiteUrlChange } from '@/actions/websites/update';
 import { getEnv } from '@/utils/index';
 import { getUserFromSession } from '@/actions/user/get-user';
-import { getLastUpdatedUser } from '@/actions/websites/get-website';
-import { publishSite } from '@/actions/websites/publish-website';
+import { getLastUpdatedUser } from '@/actions/websites/get';
+import { publishSite } from '@/actions/websites/publish';
 import { updateWebsite } from '@/actions/websites/update';
 
 // components

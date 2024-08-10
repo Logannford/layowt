@@ -4,7 +4,7 @@ import type { Website } from '@prisma/client'
 import { revalidateTag } from 'next/cache';
 import { getEnv } from '@/utils/index';
 import { updateWebsite } from '@/actions/websites/update';
-import { getWebsite } from '@/actions/websites/get-website';
+import { getWebsite } from '@/actions/websites/get';
 
 /**
  * 

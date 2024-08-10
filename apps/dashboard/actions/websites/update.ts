@@ -2,7 +2,7 @@
 import type { Website } from "@prisma/client"
 import { prisma } from '@/utils/prisma';
 import { revalidateTag } from 'next/cache';
-import { getWebsiteByDomain } from "@/actions/websites/get-website";
+import { getWebsiteByDomain } from "@/actions/websites/get";
 
 /**
  * Function to update a website via its id

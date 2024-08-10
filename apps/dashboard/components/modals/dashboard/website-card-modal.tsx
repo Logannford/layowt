@@ -83,7 +83,7 @@ export default function WebsiteCardModal({ website }: { website: Website }) {
   return (
     <DropdownMenuPortal>
       <DropdownMenuContent
-        className="bg-black border border-black-50 text-xs"
+        className="bg-black border border-black-50 text-xs text-white"
         sideOffset={5}
         side="bottom"
         align="end"
