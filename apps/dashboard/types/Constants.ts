@@ -6,5 +6,6 @@ type ErrorDetail = {
 export type ErrorCodes = {
   "not-authenticated": ErrorDetail;
   "unauthorized-site-access": string | ErrorDetail;
+  "website-not-found": ErrorDetail;
 };
 

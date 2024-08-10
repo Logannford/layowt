@@ -5,7 +5,6 @@ import { useState } from 'react';
 // components
 import { Button } from '@layowt/components/src/ui/button';
 import { Dialog, DialogContent } from '@layowt/components/src/ui/dialog';
-import { Input } from '@/components/ui/input';
 import SiteOnboardingTitle from './modal-title';
 
 // redux
@@ -19,6 +18,7 @@ import type { SavingState } from '@/types/States';
 import { ReloadIcon } from '@radix-ui/react-icons';
 import { toast } from 'sonner';
 import ModalColorPicker, { ModalColorPickerTrigger } from './modal-color-picker';
+import { InputWithLabel } from '@layowt/components/src/ui/input-label';
 
 type NewWebsiteData = Pick<
   Website,
@@ -124,23 +124,18 @@ export default function UserSiteData() {
           />
           <div className="flex flex-col gap-4 mt-6">
             <div className="flex flex-col gap-y-1 relative">
-              <label
-                htmlFor="websiteName"
-                className="text-white/80 text-sm pl-1"
-              >
-                Site Name
-              </label>
-              <Input
+              <InputWithLabel 
                 type="text"
-                className="w-full peer"
+                className="w-full peer !text-white"
                 placeholder=""
-                id="websiteName"
                 value={state.websiteName}
-                onChange={handleChange}
+                onChange={handleChange} 
                 name="websiteName"
+                label="Site Name"
+                wrapperclassname="text-white"
               />
             </div>
-            <div className="flex gap-4 mt-2">
+            <div className="flex gap-4 mt-2 text-white">
               <ModalColorPicker 
                 color={state.websitePrimaryColor}
                 onColorChange={(color) => setPrimaryColor(color)}
@@ -156,7 +151,8 @@ export default function UserSiteData() {
               <Button variant="none">Clear</Button>
               <div className="flex gap-x-4">
                 <Button
-                  variant="secondary"
+                  variant='default'
+                  padding='md'
                   onClick={() => saveSiteData(currentSite.websiteId, state)}
                   disabled={state.websiteName === '' || status === 'saving'}
                 >
