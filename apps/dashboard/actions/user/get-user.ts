@@ -3,7 +3,6 @@
 import { prisma } from '@/utils/prisma';
 
 // types
-import type { User } from '@prisma/client';
 import { UserResponse } from '@supabase/supabase-js';
 
 // supabase
