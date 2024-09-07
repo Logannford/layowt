@@ -4,7 +4,7 @@ import { DropdownMenuContent, DropdownMenuGroup } from '@/ui/dropdown-menu';
 import { DropdownMenuPortal } from '@radix-ui/react-dropdown-menu';
 import { deleteWebsite } from '@/actions/websites/delete';
 import { toast } from 'sonner';
-import { useAppDispatch } from '@/utils/index';
+import { useAppDispatch, useAppSelector } from '@/utils/index';
 import { removeWebsite, setSavingState } from '@/store/slices/website-store';
 import { useMutation } from '@tanstack/react-query';
 
@@ -20,6 +20,9 @@ import { useMutation } from '@tanstack/react-query';
 export default function WebsiteCardModal({ website }: { website: Website }) {
   const dispatch = useAppDispatch();
 
+  // grab the current user
+  const user = useAppSelector((state) => state.user.user);
+
   const {
     data,
     mutateAsync: server_deleteWebsite,
@@ -28,7 +31,9 @@ export default function WebsiteCardModal({ website }: { website: Website }) {
   } = useMutation({
     mutationFn: (websiteId: string) => {
       dispatch(setSavingState('saving'));
-      return deleteWebsite(websiteId)
+      return deleteWebsite({
+        websiteId: websiteId
+      })
     },
     onSuccess: (data) => {
       // update the local copy of the sites

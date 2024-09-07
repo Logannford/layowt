@@ -11,7 +11,11 @@ import deleteCanvas from '@/actions/canvas/delete';
  * @param websiteId 
  * @returns 'ok'
  */
-export const deleteWebsite = async (websiteId: string) => {
+export const deleteWebsite = async (opts: {
+	websiteId: string,
+}) => {
+	const { websiteId } = opts;
+	// get the user uid trying to delete the site
 
 	// check if we have any pages associated with the canvas
 	const websitePages = await prisma.page.findMany({

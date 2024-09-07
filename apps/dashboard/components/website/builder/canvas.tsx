@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, type ElementRef } from 'react';
 
 // hooks
 import useDragger from '@/hooks/builder/useDragger';
@@ -22,9 +22,9 @@ import SiteBuilderCanvasHotbar from '@/components/website/builder/hotbar';
 export default function SiteBuilderCanvas() {
   const dispatch = useAppDispatch();
 
-  const canvasContainer = useRef<HTMLDivElement>(null);
+  const canvasContainer = useRef<ElementRef<'div'>>(null);
   const currentDevice = useAppSelector(device);
-  const canvasContainerWrapper = useRef<HTMLDivElement>(null);
+  const canvasContainerWrapper = useRef<ElementRef<'div'>>(null);
   const canBeDragged = useAppSelector(canBeDraggedStore);
   const websiteData = useAppSelector(website);
   const canvasZoomLevel = useAppSelector(zoomLevel)

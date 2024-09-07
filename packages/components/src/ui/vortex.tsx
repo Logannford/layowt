@@ -1,6 +1,6 @@
 'use client';
 import { cn } from '@layowt/utils/src/cn';
-import React, { useEffect, useRef } from 'react';
+import React, { ElementRef, useEffect, useRef } from 'react';
 import { createNoise3D } from 'simplex-noise';
 import { motion } from 'framer-motion';
 
@@ -19,8 +19,8 @@ interface VortexProps {
 }
 
 export const Vortex = (props: VortexProps) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef(null);
+  const canvasRef = useRef<ElementRef<'canvas'>>(null);
+  const containerRef = useRef<ElementRef<'div'>>(null);
   const particleCount = props.particleCount || 700;
   const particlePropCount = 9;
   const particlePropsLength = particleCount * particlePropCount;
