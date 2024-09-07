@@ -10,7 +10,9 @@ export const userOwnsWebsite = async (opts: {
   const website = await prisma.website.findFirst({
     where: {
       websiteId,
-      userId
+      owner: {
+        uid: userId
+      }
     }
   });
 

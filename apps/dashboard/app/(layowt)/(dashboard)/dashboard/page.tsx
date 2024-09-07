@@ -10,14 +10,12 @@ export default async function Dashboard() {
   if (!userId) return;
 
   const websites = await getWebsite<Website[]>({ userId }, true);
-
-  const user = await getUserFromDb(userId);
   return (
     <PageClient>
       <div className="flex flex-col gap-y-10 text-white">
-        <div className="flex flex-col text-heading-3xl">Overview</div>
+        <div className="flex flex-col text-heading-3xl">Overview: {websites.map((w) => w.websiteId)}</div>
         <div className="gap-10 w-1/2 grid col-span-1 lg:grid-cols-2">
-          {websites.map((website, index) => (
+          {websites.map((website) => (
             <WebsiteCard
               key={website.websiteId}
               {...website}
