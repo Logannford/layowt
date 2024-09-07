@@ -4,6 +4,7 @@ import { supabase } from '@/lib/supabase';
 import { revalidateTag } from 'next/cache';
 import deleteCanvas from '@/actions/canvas/delete';
 import { userOwnsWebsite } from './utils/user-owns-site';
+import { getUserFromSession } from '../user/get-user';
 
 /**
  * 
@@ -16,13 +17,18 @@ export const deleteWebsite = async (opts: {
 	websiteId: string,
 }) => {
 	const { websiteId } = opts;
+	console.log(await supabase.auth.getUser());
 	// get the current user
-	const { user: user } = (await supabase.auth.getUser()).data;
+	const user = (await getUserFromSession()).data.user;
 
 	// if we do not have a user, we exit early with an error.
 	if (!user) {
 		throw new Error('No user found');
 	}
+
+	console.log({
+		user
+	})
 
 	// check if the user owns the site
 	const userOwnsSite = await userOwnsWebsite({
