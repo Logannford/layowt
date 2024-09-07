@@ -3,6 +3,7 @@ import { prisma } from '@/utils/prisma';
 import { supabase } from '@/lib/supabase';
 import { revalidateTag } from 'next/cache';
 import deleteCanvas from '@/actions/canvas/delete';
+import { userOwnsWebsite } from './utils/user-owns-site';
 
 /**
  * 
@@ -15,7 +16,24 @@ export const deleteWebsite = async (opts: {
 	websiteId: string,
 }) => {
 	const { websiteId } = opts;
-	// get the user uid trying to delete the site
+	// get the current user
+	const { user: user } = (await supabase.auth.getUser()).data;
+
+	// if we do not have a user, we exit early with an error.
+	if (!user) {
+		throw new Error('No user found');
+	}
+
+	// check if the user owns the site
+	const userOwnsSite = await userOwnsWebsite({
+		websiteId,
+		userId: user.id
+	});
+
+	// if the user does not own the site, we exit early with an error.
+	if (!userOwnsSite) {
+		throw new Error('User does not own website');
+	}
 
 	// check if we have any pages associated with the canvas
 	const websitePages = await prisma.page.findMany({
@@ -36,10 +54,12 @@ export const deleteWebsite = async (opts: {
 	// then delete the associated canvas
 	await deleteCanvas({ canvasId: websiteId });
 
-	// then delete the site from the db
 	await prisma.website.delete({
 		where: {
-			websiteId
+			websiteId,
+			AND: {
+				userId: user.id
+			}
 		}
 	})
 
