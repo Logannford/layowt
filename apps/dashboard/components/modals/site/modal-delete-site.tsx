@@ -9,7 +9,9 @@ export default async function ModalDeleteSite({ siteId }: { siteId: string }) {
 
   const handleWebsiteDelete = async () => {
     try {
-      await deleteWebsite(siteId);
+      await deleteWebsite({
+        websiteId: siteId
+      });
       toast.success('Site deleted successfully');
       // redirect to dashboard
       router.push('/dashboard');

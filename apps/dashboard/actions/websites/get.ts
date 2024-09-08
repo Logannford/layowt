@@ -5,11 +5,6 @@ import { revalidateTag } from 'next/cache';
 import { getUserFromDb } from '../user/get-user';
 import { unstable_cache } from 'next/cache';
 
-interface WebsiteOptions {
-	userId?: string;
-	websiteId?: string;
-}
-
 /**
  * Function to retrieve a website from the database 
  * via passing in data
@@ -20,7 +15,10 @@ interface WebsiteOptions {
  */
 export const getWebsite = unstable_cache(
 	async <T extends Website | Website[] = Website>(
-	options: WebsiteOptions,
+	options: {
+		userId?: string;
+		websiteId?: string;
+	},
 	returnMany: boolean = false
 ): Promise<T> => {
 	const { userId, websiteId } = options;
@@ -56,6 +54,7 @@ export const getWebsite = unstable_cache(
 	else
 		websiteData = await prisma.website.findMany(opts);
 
+	// revalidate the cache tag
 	revalidateTag('websites');
 
 	return websiteData as T;

@@ -1,7 +1,7 @@
 import { prisma } from '@/utils/prisma';
 import { notFound } from 'next/navigation';
 
-import { getDynamicSite } from '@/actions/websites/get-website';
+import { getDynamicSite } from '@/actions/websites/get';
 import { Metadata } from 'next';
 import { use } from 'react';
 import { generateSiteMetadata } from '@/actions/websites/metadata';

@@ -1,4 +1,4 @@
-import { getWebsite } from '@/actions/websites/get-website';
+import { getWebsite } from '@/actions/websites/get';
 import SiteBuilderClient from './page.client';
 import { Metadata } from 'next';
 import { generateSiteMetadata } from '@/actions/websites/metadata';
