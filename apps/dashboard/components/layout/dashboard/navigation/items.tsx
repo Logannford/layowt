@@ -99,9 +99,6 @@ export default function NavigationItems({
       {...props}
     >
       <ul className="flex flex-col gap-y-1">
-        <span className="text-xs uppercase text-white/50 mx-2 mb-2">
-          Menu
-        </span>
         {navItems.map((item, index) =>
           item.name === 'separator' ? (
             <div
